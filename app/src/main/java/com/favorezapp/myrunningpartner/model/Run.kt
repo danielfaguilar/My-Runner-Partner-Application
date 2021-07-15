@@ -3,7 +3,6 @@ package com.favorezapp.myrunningpartner.model
 import android.graphics.Bitmap
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 /**
  * Describe the run
