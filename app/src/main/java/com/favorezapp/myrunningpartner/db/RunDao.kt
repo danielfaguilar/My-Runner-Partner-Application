@@ -28,7 +28,7 @@ interface RunDao {
      * Retrieve all items of Run ordered by some attribute
      */
     @Query("SELECT * FROM run_table ORDER BY timestamp DESC")
-    fun getAllOrderedByTimestamp(): LiveData<List<Run>>
+    fun getAllOrderedByDate(): LiveData<List<Run>>
     @Query("SELECT * FROM run_table ORDER BY duration DESC")
     fun getAllOrderedByDuration(): LiveData<List<Run>>
     @Query("SELECT * FROM run_table ORDER BY caloriesBurned DESC")
