@@ -18,6 +18,9 @@
     <string name="zero_km_per_hour_title">0km/h</string>
     <string name="start">Start</string>
     <string name="finish_run">Finish Run</string>
+    <string name="run_title">Run</string>
+    <string name="run_statistics">Statistics</string>
+    <string name="settings">Settings</string>
 
     <string-array name="filter_options">
         <item>Date</item>
