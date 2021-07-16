@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">My Running Partner</string>
+
+    <string name="fab_add_run">Add new run</string>
+    <string name="sort_by">Sort by: </string>
+    <string name="your_name">Your Name</string>
+    <string name="your_weight">Your Weight</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="kg_title">kg</string>
+    <string name="continue_title">Continue</string>
+    <string name="welcome_message">Welcome! Please enter your name and weight.</string>
+    <string name="total_distance">Total Distance</string>
+    <string name="zero_km_title">0km</string>
+    <string name="total_time">Total Time</string>
+    <string name="total_calories_burned">Total Calories Burned</string>
+    <string name="zero_kcal_title">0kcal</string>
+    <string name="average_speed">Average Speed</string>
+    <string name="zero_km_per_hour_title">0km/h</string>
+    <string name="start">Start</string>
+    <string name="finish_run">Finish Run</string>
+
+    <string-array name="filter_options">
+        <item>Date</item>
+        <item>Running Time</item>
+        <item>Distance</item>
+        <item>Average Speed</item>
+        <item>Calories Burned</item>
+    </string-array>
 </resources>
