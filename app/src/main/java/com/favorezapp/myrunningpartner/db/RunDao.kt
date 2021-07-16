@@ -1,4 +1,4 @@
-package com.favorezapp.myrunningpartner.model
+package com.favorezapp.myrunningpartner.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

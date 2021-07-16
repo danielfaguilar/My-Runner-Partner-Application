@@ -2,7 +2,7 @@ package com.favorezapp.myrunningpartner
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.favorezapp.myrunningpartner.model.RunDao
+import com.favorezapp.myrunningpartner.db.RunDao
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

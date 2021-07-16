@@ -2,9 +2,9 @@ package com.favorezapp.myrunningpartner.di
 
 import android.content.Context
 import androidx.room.Room
-import com.favorezapp.myrunningpartner.model.DB_NAME
-import com.favorezapp.myrunningpartner.model.RunDao
-import com.favorezapp.myrunningpartner.model.RunDatabase
+import com.favorezapp.myrunningpartner.db.DB_NAME
+import com.favorezapp.myrunningpartner.db.RunDao
+import com.favorezapp.myrunningpartner.db.RunDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
