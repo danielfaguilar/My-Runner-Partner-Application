@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.favorezapp.myrunningpartner.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var mNavHostFragment: FragmentContainerView
     lateinit var mBottomNavigationView: BottomNavigationView
