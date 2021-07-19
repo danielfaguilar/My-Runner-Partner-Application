@@ -1,5 +1,6 @@
 package com.favorezapp.myrunningpartner.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.favorezapp.myrunningpartner.Constants
 import com.favorezapp.myrunningpartner.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        navigateToTrackingFragmentIfNeeded(intent)
 
         setSupportActionBar(findViewById(R.id.toolbar))
         mNavHostFragment = findViewById(R.id.nav_host_fragment)
@@ -37,6 +41,15 @@ class MainActivity : AppCompatActivity() {
                     else -> mBottomNavigationView.visibility = View.GONE
                 }
             }
+    }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        navigateToTrackingFragmentIfNeeded(intent)
+    }
+
+    private fun navigateToTrackingFragmentIfNeeded(intent: Intent?) {
+        if( intent?.action == Constants.ACTION_NAVIGATE_TO_TRACKING_FRAGMENT )
+            mNavHostFragment.findNavController().navigate(R.id.action_MainActivity_to_trackingFragment)
     }
 }
