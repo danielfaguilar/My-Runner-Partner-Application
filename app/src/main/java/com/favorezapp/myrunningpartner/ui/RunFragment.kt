@@ -52,6 +52,11 @@ class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCa
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requestLocationPermissions()
+    }
+
     /**
      * Delegate the result provided by the android framework to Easy Permissions
      */

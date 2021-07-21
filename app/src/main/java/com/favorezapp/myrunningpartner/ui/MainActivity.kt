@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigateToTrackingFragmentIfNeeded(intent)
-
         setSupportActionBar(findViewById(R.id.toolbar))
         mNavHostFragment = findViewById(R.id.nav_host_fragment)
         mBottomNavigationView = findViewById(R.id.bottom_navigation_view)
@@ -41,6 +39,8 @@ class MainActivity : AppCompatActivity() {
                     else -> mBottomNavigationView.visibility = View.GONE
                 }
             }
+
+        navigateToTrackingFragmentIfNeeded(intent)
     }
 
     override fun onNewIntent(intent: Intent?) {

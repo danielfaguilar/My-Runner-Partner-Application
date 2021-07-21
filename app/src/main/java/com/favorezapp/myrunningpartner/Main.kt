@@ -8,7 +8,6 @@ import timber.log.Timber
 class Main: Application() {
     override fun onCreate() {
         super.onCreate()
-
         // Setup timber logging tool for debug
         Timber.plant(Timber.DebugTree())
     }
