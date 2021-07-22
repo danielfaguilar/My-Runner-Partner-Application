@@ -38,10 +38,6 @@ class TrackingService: LifecycleService() {
     private val locationCallback = object: LocationCallback() {
         override fun onLocationResult(result: LocationResult) {
             super.onLocationResult(result)
-
-            Timber.d("# Locations Received: ${result.locations.size}")
-            Timber.d("Location: ${result.lastLocation.latitude} - ${result.lastLocation.longitude}")
-
             if( isTracking.value != null && isTracking.value == true)
                 addLocationToTheLastPolyline(result.lastLocation)
         }
@@ -83,7 +79,6 @@ class TrackingService: LifecycleService() {
 
     private fun addEmptyPolyline() {
         if( polylines.value == null ) {
-            Timber.d("This should not happen")
             polylines.postValue(mutableListOf(mutableListOf()))
         } else {
             polylines.value!!.add(mutableListOf())
@@ -95,7 +90,6 @@ class TrackingService: LifecycleService() {
     private fun updateIsTracking(isTracking: Boolean) {
         if( isTracking ) {
             if( geoLocationPermissionsChecker.arePermissionsGiven ) {
-                Timber.d("Permissions given")
                 fusedLocationProviderClient.requestLocationUpdates(
                     createLocationRequest(),
                     locationCallback,
@@ -118,6 +112,10 @@ class TrackingService: LifecycleService() {
             .setInterval(interval)
 
 
+    private fun pauseService() {
+        isTracking.postValue(false)
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
             when(it.action) {
@@ -126,10 +124,15 @@ class TrackingService: LifecycleService() {
                         log("Started")
                         startForegroundService()
                         isFirstRun = false
-                    } else
+                    } else {
+                        startForegroundService()
                         log("Resumed")
+                    }
                 }
-                ACTION_SERVICE_PAUSE -> { log("Pause") }
+                ACTION_SERVICE_PAUSE -> {
+                    pauseService()
+                    log("Pause")
+                }
                 ACTION_SERVICE_STOP -> { log("Stop") }
             }
         }
