@@ -4,12 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.favorezapp.myrunningpartner.Constants
+import com.favorezapp.myrunningpartner.util.Constants
 import com.favorezapp.myrunningpartner.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint

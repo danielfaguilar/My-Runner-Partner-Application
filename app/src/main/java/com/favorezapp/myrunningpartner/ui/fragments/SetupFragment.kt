@@ -1,4 +1,4 @@
-package com.favorezapp.myrunningpartner.ui
+package com.favorezapp.myrunningpartner.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

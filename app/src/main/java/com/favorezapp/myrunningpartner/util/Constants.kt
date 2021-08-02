@@ -1,4 +1,4 @@
-package com.favorezapp.myrunningpartner
+package com.favorezapp.myrunningpartner.util
 
 object Constants {
     const val ACTION_SERVICE_START_OR_RESUME = "actionServiceStart"

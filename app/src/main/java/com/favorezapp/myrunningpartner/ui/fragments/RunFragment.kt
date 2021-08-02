@@ -1,18 +1,22 @@
-package com.favorezapp.myrunningpartner.ui
+package com.favorezapp.myrunningpartner.ui.fragments
 
 import android.Manifest
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.favorezapp.myrunningpartner.R
 import com.favorezapp.myrunningpartner.permission.GeoLocationPermissionsChecker
 import com.favorezapp.myrunningpartner.permission.GeoLocationPermissionsCheckerImpl
+import com.favorezapp.myrunningpartner.ui.adapters.RunListAdapter
 import com.favorezapp.myrunningpartner.ui.view_models.MainViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +27,15 @@ const val LOCATION_PERMISSIONS_REQUEST_CODE = 1;
 
 @AndroidEntryPoint
 class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCallbacks{
-    private val mainViewModel: MainViewModel by viewModels()
-    lateinit var locationPermissionChecker: GeoLocationPermissionsChecker
+    // ViewModel provided with Hilt by HiltViewModel
+    private val mMainViewModel: MainViewModel by viewModels()
+
+    // Views and view helpers
+    lateinit var mRecyclerRuns: RecyclerView
+    lateinit var mRunAdapter: RunListAdapter
+
+    // Permissions
+    lateinit var mLocationPermissionChecker: GeoLocationPermissionsChecker
 
     /**
      * Initialize the location permission checker with the host component context
@@ -32,7 +43,8 @@ class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCa
      */
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        locationPermissionChecker = GeoLocationPermissionsCheckerImpl(context)
+        mLocationPermissionChecker =
+            GeoLocationPermissionsCheckerImpl(context)
     }
 
     /**
@@ -43,18 +55,37 @@ class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCa
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val root = super.onCreateView(inflater, container, savedInstanceState)
+
         root?.findViewById<FloatingActionButton>(R.id.fab_add_run)
             ?.setOnClickListener {
                 findNavController().navigate(R.id.action_runFragment_to_trackingFragment)
             }
+        mRecyclerRuns = root?.findViewById(R.id.recycler_view_runs)!!
+
         return root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestLocationPermissions()
+        setupRecyclerView()
+
+        mMainViewModel.runsSortedByDate.observe(viewLifecycleOwner) {
+            mRunAdapter.submitList(it)
+
+            for(i in it) {
+                Log.d("mTAG", "onViewCreated: $i")
+            }
+        }
+    }
+    /*
+    * Setup the recyclerview
+    * */
+    private fun setupRecyclerView() = mRecyclerRuns.apply {
+        mRunAdapter = RunListAdapter()
+        adapter = mRunAdapter
+        layoutManager = LinearLayoutManager(requireContext())
     }
 
     /**
@@ -86,10 +117,11 @@ class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCa
      * Request the permissions if needed based on the Build Version
      */
     private fun requestLocationPermissions() {
-        if( locationPermissionChecker.arePermissionsGiven )
+        if( mLocationPermissionChecker.arePermissionsGiven )
             return
 
-        val rationaleMessage = requireContext().getString(R.string.rationale_request_location_permissions)
+        val rationaleMessage = requireContext()
+            .getString(R.string.rationale_request_location_permissions)
 
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q )
             EasyPermissions.requestPermissions(

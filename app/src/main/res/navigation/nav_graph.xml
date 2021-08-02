@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/runFragment"
-        android:name="com.favorezapp.myrunningpartner.ui.RunFragment"
+        android:name="com.favorezapp.myrunningpartner.ui.fragments.RunFragment"
         android:label="RunFragment" >
         <action
             android:id="@+id/action_runFragment_to_trackingFragment"
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/setupFragment"
-        android:name="com.favorezapp.myrunningpartner.ui.SetupFragment"
+        android:name="com.favorezapp.myrunningpartner.ui.fragments.SetupFragment"
         android:label="SetupFragment" >
         <action
             android:id="@+id/action_setupFragment_to_runFragment"
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/trackingFragment"
-        android:name="com.favorezapp.myrunningpartner.ui.TrackingFragment"
+        android:name="com.favorezapp.myrunningpartner.ui.fragments.TrackingFragment"
         android:label="TrackingFragment" >
         <action
             android:id="@+id/action_trackingFragment_to_runFragment"
@@ -35,10 +35,10 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.favorezapp.myrunningpartner.ui.SettingsFragment"
+        android:name="com.favorezapp.myrunningpartner.ui.fragments.SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/statisticsFragment"
-        android:name="com.favorezapp.myrunningpartner.ui.StatisticsFragment"
+        android:name="com.favorezapp.myrunningpartner.ui.fragments.StatisticsFragment"
         android:label="StatisticsFragment" />
 </navigation>

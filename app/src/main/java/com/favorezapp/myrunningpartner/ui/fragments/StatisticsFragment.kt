@@ -1,4 +1,4 @@
-package com.favorezapp.myrunningpartner.ui
+package com.favorezapp.myrunningpartner.ui.fragments
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels

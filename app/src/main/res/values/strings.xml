@@ -24,6 +24,13 @@
     <string name="rationale_request_location_permissions">This app requires location permissions to work so please accept them</string>
     <string name="notification_content_text">My Runner App</string>
     <string name="stop">Stop</string>
+    <string name="action_resume">Resume</string>
+    <string name="action_pause">Pause</string>
+    <string name="cancel_run">Cancel run</string>
+    <string name="cancel_run_description">Are you sure to cancel the current run?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="run_saved">"Run saved "</string>
 
     <string-array name="filter_options">
         <item>Date</item>
