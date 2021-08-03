@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.favorezapp.myrunningpartner.R
 import com.favorezapp.myrunningpartner.ui.view_models.StatisticsViewModel
 import com.favorezapp.myrunningpartner.util.formatTime
+import com.github.mikephil.charting.charts.BarChart
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.round
@@ -21,6 +22,7 @@ class StatisticsFragment: Fragment(R.layout.fragment_statistics) {
     lateinit var mTVTotalTime: MaterialTextView
     lateinit var mTVTotalCalories: MaterialTextView
     lateinit var mTVAvgSpeed: MaterialTextView
+    lateinit var mBarChart: BarChart
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +36,7 @@ class StatisticsFragment: Fragment(R.layout.fragment_statistics) {
             mTVTotalTime = findViewById(R.id.tv_total_time)
             mTVTotalCalories = findViewById(R.id.tv_total_calories)
             mTVAvgSpeed = findViewById(R.id.mtv_avg_speed)
+            mBarChart = findViewById(R.id.bar_chart)
         }
 
         return root
