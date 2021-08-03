@@ -71,7 +71,7 @@ class SetupFragment: Fragment(R.layout.fragment_setup) {
         val name = mEtName.text.toString()
         val weight = mEtWeight.text.toString()
 
-        if( name.isEmpty() && weight.isEmpty() )
+        if( name.isEmpty() || weight.isEmpty() )
             return false
 
         preferences.putUsername(name)
