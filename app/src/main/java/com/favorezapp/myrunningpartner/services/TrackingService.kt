@@ -55,7 +55,7 @@ class TrackingService: LifecycleService() {
     @Inject
     lateinit var mBaseNotificationBuilder: NotificationCompat.Builder
 
-    lateinit var mCurrentNotificationBuilder: NotificationCompat.Builder
+    private lateinit var mCurrentNotificationBuilder: NotificationCompat.Builder
 
     /*
     * The service exposes this properties to external
@@ -149,7 +149,7 @@ class TrackingService: LifecycleService() {
     }
 
     /**
-     * Initialize the isTraking  and polylines of the companion
+     * Initialize the isTracking  and polylines of the companion
      * object
      */
     private fun postInitialValuesToLiveData() {

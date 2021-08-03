@@ -28,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 const val POLYLINE_WIDTH = 8f
@@ -53,8 +54,8 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking) {
     private var mIsTracking = false
     private var mTimeRunInMillis = 0L
 
-    // Dummy domain variable
-    private var weight: Float = 0f
+    @set:Inject
+    var weight: Float = 0f
 
     // Menu with single item to cancel run
     private var menu: Menu? = null

@@ -31,6 +31,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="run_saved">"Run saved "</string>
+    <string name="all_fields_required">Please fill all the fields</string>
 
     <string-array name="filter_options">
         <item>Date</item>

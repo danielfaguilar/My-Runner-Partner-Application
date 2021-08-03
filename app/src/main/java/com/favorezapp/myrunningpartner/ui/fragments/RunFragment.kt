@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,12 +20,19 @@ import com.favorezapp.myrunningpartner.permission.GeoLocationPermissionsChecker
 import com.favorezapp.myrunningpartner.permission.GeoLocationPermissionsCheckerImpl
 import com.favorezapp.myrunningpartner.ui.adapters.RunListAdapter
 import com.favorezapp.myrunningpartner.ui.view_models.MainViewModel
+import com.favorezapp.myrunningpartner.util.RunSortType
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
 const val LOCATION_PERMISSIONS_REQUEST_CODE = 1;
+
+const val INDEX_OF_DATE = 0
+const val INDEX_OF_DISTANCE = 2
+const val INDEX_OF_DURATION = 1
+const val INDEX_OF_AVG_SPEED = 3
+const val INDEX_OF_CALORIES_BURNED = 4
 
 @AndroidEntryPoint
 class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCallbacks{
@@ -33,9 +42,30 @@ class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCa
     // Views and view helpers
     lateinit var mRecyclerRuns: RecyclerView
     lateinit var mRunAdapter: RunListAdapter
+    lateinit var mSpinnerFilter: Spinner
 
     // Permissions
     lateinit var mLocationPermissionChecker: GeoLocationPermissionsChecker
+
+    // Listener for the filter spinner
+    private val mSpinnerOnItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(
+            parent: AdapterView<*>?,
+            view: View?,
+            position: Int,
+            id: Long
+        ) {
+            when( position ) {
+                INDEX_OF_DATE -> mMainViewModel.sortRuns(RunSortType.DATE)
+                INDEX_OF_DURATION -> mMainViewModel.sortRuns(RunSortType.DURATION)
+                INDEX_OF_DISTANCE -> mMainViewModel.sortRuns(RunSortType.DISTANCE)
+                INDEX_OF_AVG_SPEED -> mMainViewModel.sortRuns(RunSortType.AVG_SPEED)
+                INDEX_OF_CALORIES_BURNED -> mMainViewModel.sortRuns(RunSortType.CALORIES_BURNED)
+            }
+        }
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
+    }
+
 
     /**
      * Initialize the location permission checker with the host component context
@@ -58,25 +88,32 @@ class RunFragment: Fragment(R.layout.fragment_run), EasyPermissions.PermissionCa
     ): View {
         val root = super.onCreateView(inflater, container, savedInstanceState)
 
-        root?.findViewById<FloatingActionButton>(R.id.fab_add_run)
-            ?.setOnClickListener {
+        root?.apply {
+            findViewById<FloatingActionButton>(R.id.fab_add_run).setOnClickListener {
                 findNavController().navigate(R.id.action_runFragment_to_trackingFragment)
             }
-        mRecyclerRuns = root?.findViewById(R.id.recycler_view_runs)!!
 
-        return root
+            mRecyclerRuns = findViewById(R.id.recycler_view_runs)!!
+            mSpinnerFilter.onItemSelectedListener = mSpinnerOnItemSelectedListener
+        }
+
+        return root!!
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requestLocationPermissions()
         setupRecyclerView()
 
-        mMainViewModel.runsSortedByDate.observe(viewLifecycleOwner) {
-            mRunAdapter.submitList(it)
+        when( mMainViewModel.sortType ) {
+            RunSortType.DATE -> mSpinnerFilter.setSelection(INDEX_OF_DATE)
+            RunSortType.DURATION -> mSpinnerFilter.setSelection(INDEX_OF_DURATION)
+            RunSortType.DISTANCE -> mSpinnerFilter.setSelection(INDEX_OF_DISTANCE)
+            RunSortType.AVG_SPEED -> mSpinnerFilter.setSelection(INDEX_OF_AVG_SPEED)
+            RunSortType.CALORIES_BURNED -> mSpinnerFilter.setSelection(INDEX_OF_CALORIES_BURNED)
+        }
 
-            for(i in it) {
-                Log.d("mTAG", "onViewCreated: $i")
-            }
+        mMainViewModel.runsMediator.observe(viewLifecycleOwner) {
+            mRunAdapter.submitList(it)
         }
     }
     /*
