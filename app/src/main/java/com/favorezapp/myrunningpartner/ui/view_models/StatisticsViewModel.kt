@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(
-    private val mainRepo: MainRepository
+    mainRepo: MainRepository
 ): ViewModel() {
     val mAllTheTimeSpentRunning = mainRepo.getAllTheTimeSpentRunning()
     val mAllTheDistanceTraveled = mainRepo.getAllTheDistanceTraveled()

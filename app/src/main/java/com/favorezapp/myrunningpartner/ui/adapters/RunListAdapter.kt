@@ -45,6 +45,7 @@ class RunListAdapter: ListAdapter<Run, RunListAdapter.RunViewHolder>(DIFF_UTIL) 
 
         holder.apply {
             Glide.with(this.itemView).load(run.img).into(ivRunImage)
+
             val calendar = Calendar.getInstance().apply {
                 timeInMillis = run.timestamp
             }

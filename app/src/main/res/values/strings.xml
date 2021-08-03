@@ -34,6 +34,11 @@
     <string name="all_fields_required">Please fill all the fields</string>
     <string name="success">Success</string>
     <string name="failure">Failure</string>
+    <string name="date">Date</string>
+    <string name="duration">Duration</string>
+    <string name="avg_speed">Avg Speed</string>
+    <string name="distance">Distance</string>
+    <string name="cal_burned">Calories Burned</string>
 
     <string-array name="filter_options">
         <item>Date</item>
